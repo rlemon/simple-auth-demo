@@ -13,14 +13,15 @@ router.get(/\/|\/dashboard/, function(req, res) {
 });
 
 // router.post('/logout', function(req, res) {
-// 	req.session.destroy(function() {
-// 		return res.redirect('/');
-// 	});
+	// req.session.destroy(function() {
+	// 	return res.redirect('/');
+	// });
 // });
 
 router.get('/logout', function(req, res) {
-	req.logout();
-	res.redirect('/');
+	req.session.destroy(function() {
+		return res.redirect('/');
+	});
 });
 
 module.exports = router;
