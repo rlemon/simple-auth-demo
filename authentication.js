@@ -6,7 +6,7 @@ var passport = require('passport'),
 getDb(function(client) {
 	passport.use(new LocalStrategy(function(username, password, done) {
 		console.log('this logs every time');
-		client.queryAsync({
+		return client.queryAsync({
 			text: 'SELECT * FROM subscribers WHERE username = $1',
 			name: 'get user info',
 			values: [username]
