@@ -20,6 +20,7 @@ router.get('/login', function(req, res) {
     });
 });
 router.post('/login', function(req, res, next) {
+    console.log('login path hit');
     passport.authenticate('local', function(err, user, info) {
         if (err) {
             return next(err);
@@ -27,6 +28,7 @@ router.post('/login', function(req, res, next) {
         if (!user) {
             return res.redirect('/?loginFailed');
         }
+        console.log('attempting to login the user');
         req.login(user, function(err) {
             if (err) {
                 return next(err);
