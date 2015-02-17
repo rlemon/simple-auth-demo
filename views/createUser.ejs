@@ -1,0 +1,11 @@
+<% include header %>
+<form action='/admins/createUser' method='post'>
+	<label>username: <input type="text" name="username" id="username" /></label>
+	<br>
+	<label>password: <input type="password" name="password" id="password" /></label>
+	<br>
+	<select name="role" id="role"><option value="user" selected>user</option><option value="admin" >admin</option></select>
+	<br>
+	<button type="submit">Login</button>
+</form>
+<% include footer %>
