@@ -12,10 +12,15 @@ router.get(/\/|\/dashboard/, function(req, res) {
 	res.render('users/dashboard.ejs', {user: req.user});
 });
 
+// router.post('/logout', function(req, res) {
+// 	req.session.destroy(function() {
+// 		return res.redirect('/');
+// 	});
+// });
+
 router.post('/logout', function(req, res) {
-	req.session.destroy(function() {
-		return res.redirect('/');
-	});
+	req.logout();
+	res.redirect('/');
 });
 
 module.exports = router;
