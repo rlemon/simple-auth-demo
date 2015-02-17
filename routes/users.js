@@ -12,13 +12,7 @@ router.get(/\/|\/dashboard/, function(req, res) {
 	res.render('users/dashboard.ejs', {user: req.user});
 });
 
-// router.post('/logout', function(req, res) {
-	// req.session.destroy(function() {
-	// 	return res.redirect('/');
-	// });
-// });
-
-router.get('/logout', function(req, res) {
+router.post('/logout', function(req, res) {
 	req.session.destroy(function() {
 		return res.redirect('/');
 	});
