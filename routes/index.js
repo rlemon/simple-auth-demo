@@ -1,10 +1,10 @@
 var express = require('express'),
     router = express.Router(),
     passport = require('passport');
-router.use(function(req, res, next) {
-    if (!req.user) return next(); // if there is no user
-    return res.redirect('/'); // if there is a user redirect to /
-});
+// router.use(function(req, res, next) {
+//     if (!req.user) return next(); // if there is no user
+//     return res.redirect('/'); // if there is a user redirect to /
+// });
 router.get('/', function(req, res) {
     if (req.user) {
         if (req.user.role && req.user.role === 'admin') {
