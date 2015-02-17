@@ -2,12 +2,11 @@ var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     passwordHash = require('password-hash'),
     getDb = require('./modules/db');
-getDb(function(client) {
-    passport.use(new LocalStrategy(function(username, password, done) {
-        console.log('this logs every time');
-        return client.queryAsync({
+passport.use(new LocalStrategy(function(username, password, done) {
+    console.log('this logs every time');
+    getDb(function(client) {
+        client.queryAsync({
             text: 'SELECT * FROM subscribers WHERE username = $1',
-            name: 'get user info',
             values: [username]
         }).then(function(results) {
             var user = results.rows[0];
@@ -18,10 +17,9 @@ getDb(function(client) {
                 });
             }
             return done(null, user);
-        }).
-        catch (done);
-    }));
-});
+        }).catch(done);
+    });
+}));
 passport.serializeUser(function(user, done) {
     done(null, user);
 });
@@ -30,13 +28,12 @@ passport.deserializeUser(function(obj, done) {
         return done(null, obj);
     }
     getDb(function(client) {
-        return client.queryAsync({
-            name: 'get user info',
+        client.queryAsync({
+            text: 'SELECT * FROM subscribers WHERE username = $1',
             values: [obj.username]
         }).then(function(results) {
             var user = results.rows[0];
             return done(null, user);
-        }).
-        catch (done);
+        }).catch(done);
     });
 });
