@@ -23,6 +23,7 @@ router.post('/login', function(req, res, next) {
     console.log('login path hit');
     passport.authenticate('local', function(err, user, info) {
         if (err) {
+            console.log('authenticate error', err);
             return next(err);
         }
         if (!user) {
@@ -31,6 +32,7 @@ router.post('/login', function(req, res, next) {
         console.log('attempting to login the user');
         req.login(user, function(err) {
             if (err) {
+                console.log('login error', err);
                 return next(err);
             }
             if (user.role === 'admin') {
