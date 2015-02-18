@@ -3,7 +3,8 @@ var express = require('express'),
 	path = require('path'),
 	cookieParser = require('cookie-parser'),
 	bodyParser = require('body-parser'),
-	session = require('express-session');
+	session = require('express-session'),
+    configs = require('./configs');
 
 var app = express();
 var port = 80;
@@ -18,7 +19,6 @@ app.set('views', path.join(__dirname , 'views'));
 
 app.set('view engine', 'ejs');
 
-//app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: false
@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static( path.join(__dirname , 'public')));
 app.use(session({
-	secret: process.env.SESSION_SECRET
+	secret: configs.sessionSecretKey
 }));
 app.use(passport.initialize());
 app.use(passport.session());
