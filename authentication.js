@@ -3,14 +3,12 @@ var passport = require('passport'),
     passwordHash = require('password-hash'),
     getDb = require('./modules/db');
 passport.use(new LocalStrategy(function(username, password, done) {
-    console.log('this logs every time');
     getDb(function(client) {
         client.queryAsync({
             text: 'SELECT * FROM subscribers WHERE username = $1',
             values: [username]
         }).then(function(results) {
             var user = results.rows[0];
-            console.log('this does not log after it "breaks"');
             if (!user || !passwordHash.verify(password, user.password)) {
                 return done(null, false, {
                     message: 'invalid username or password'
